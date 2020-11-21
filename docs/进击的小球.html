@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{margin: 0px; padding: 0px;}
+        .ball{width: 20px; height: 20px; border-radius: 50%; position: absolute;}
+    </style>
+    <script>
+
+        function randomColor() {
+            var str = "rgb(" + parseInt(Math.random() * 256) + "," + parseInt(Math.random() * 256) + "," + parseInt(Math.random() * 256) + ')';
+            return str;
+        }
+        
+        /* window.onload = function () {
+            var windowWidth = document.documentElement.clientWidth || document.body.clientWidth;
+            var windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
+            document.write(Math.random() * windowWidth)
+        } */
+
+        window.onload = function () {
+            document.oncontextmenu = function(){
+                    return false;
+            }
+
+            bodys = document.getElementById('bodys');
+
+            bodys.style.width = (document.documentElement.clientWidth || document.body.clientWidth) + 'px';
+            bodys.style.height = (document.documentElement.clientHeight || document.body.clientHeight) + 'px';
+
+            var windowWidth = document.documentElement.clientWidth || document.body.clientWidth;
+            var windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
+
+            for (let i = 0; i <= 100; i++) {
+                var ball = document.createElement('div');
+                ball.setAttribute('class', 'ball');
+                ball.style.backgroundColor = randomColor();
+
+                var rangX = Math.abs(Math.random() * windowWidth - 30);
+                var rangY = Math.abs(Math.random() * windowHeight - 30);
+
+                ball.style.left = rangX + 'px';
+                ball.style.top = rangY + 'px';
+
+                document.body.appendChild(ball);
+
+                ballMove(ball);
+            }
+        }
+
+
+        function ballMove(node) {
+            var speedX = parseInt(Math.random() * 4) + 3;
+            var speedY = parseInt(Math.random() * 5) + 3;
+
+            var windowWidth = document.documentElement.clientWidth || document.body.clientWidth;
+            var windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
+
+
+            setInterval(function () {
+                node.style.left = node.offsetLeft + speedX + 'px';
+                if (node.offsetLeft <= 0 || node.offsetLeft > windowWidth - node.offsetWidth - 8) {
+                    speedX *= -1;
+                }
+
+                node.style.top = node.offsetTop + speedY + 'px';
+                if (node.offsetTop <= 0 || node.offsetTop > windowHeight - node.offsetHeight - 8) {
+                    speedY *= -1;
+                }
+            }, 10);
+        }
+    </script>
+</head>
+<body id="bodys">
+    
+</body>
+</html>
